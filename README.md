@@ -2,6 +2,21 @@
 
 Vitrine de imóveis em leilão já pré-analisados (semáforo A–E, score 0–100, lance máximo recomendado e flags de risco), começando pelos imóveis da Caixa em São Paulo.
 
+## Motor de análise
+
+Especificação aprovada: documento "LeilãoClaro — Especificação do motor de análise (v1)".
+
+O motor fica em `src/engine/`, em TypeScript puro (sem tela, banco ou rede):
+
+- `premissas.ts` — todos os valores que não vêm do imóvel, com versão
+- `financeiro.ts` — módulo Financeiro: 7 blocos de custo, 3 cenários, ROI anualizado, lance máximo, lance de equilíbrio, score e avisos, cada número com explicação e origem
+- `financeiro.test.ts` — o exemplo calculado da especificação, linha a linha, mais as regras
+
+```bash
+npm run test:engine   # testes do motor
+npm run typecheck
+```
+
 ## Sprint 1 · item 3 — Scraper da Caixa
 
 ```bash

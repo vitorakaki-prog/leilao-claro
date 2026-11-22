@@ -5,7 +5,9 @@
   "scripts": {
     "scrape": "node scraper/caixa.js",
     "scrape:ambos": "node scraper/caixa.js --tipo ambos",
-    "test": "node --test scraper/*.test.js"
+    "test": "vitest run && node --test scraper/*.test.js",
+    "test:engine": "vitest run",
+    "typecheck": "tsc"
   },
   "repository": {
     "type": "git",
@@ -20,5 +22,10 @@
     "cheerio": "^1.2.0",
     "playwright": "^1.65.1"
   },
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "typescript": "^5.9.3",
+    "vitest": "^2.1.9"
+  }
 }
