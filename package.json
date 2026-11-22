@@ -7,7 +7,10 @@
     "scrape:ambos": "node scraper/caixa.js --tipo ambos",
     "test": "vitest run && node --test scraper/*.test.js",
     "test:engine": "vitest run",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
   "repository": {
     "type": "git",
@@ -20,11 +23,19 @@
   "homepage": "https://github.com/vitorakaki-prog/leilao-claro#readme",
   "dependencies": {
     "cheerio": "^1.2.0",
-    "playwright": "^1.65.1"
+    "next": "^14.2.35",
+    "playwright": "^1.65.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "private": true,
   "devDependencies": {
     "@types/node": "^22.20.5",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "autoprefixer": "^10.7.0",
+    "postcss": "^8.5.33",
+    "tailwindcss": "^3.4.19",
     "typescript": "^5.9.3",
     "vitest": "^2.1.9"
   }

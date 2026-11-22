@@ -3,3 +3,7 @@ data/html/
 *.log
 .env
 .env.local
+.next/
+next-env.d.ts
+*.tsbuildinfo
+.vercel
