@@ -1,0 +1,24 @@
+{
+  "name": "leilao-claro",
+  "version": "1.0.0",
+  "description": "LeilãoClaro — análise de leilões imobiliários",
+  "scripts": {
+    "scrape": "node scraper/caixa.js",
+    "scrape:ambos": "node scraper/caixa.js --tipo ambos",
+    "test": "node --test scraper/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vitorakaki-prog/leilao-claro.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vitorakaki-prog/leilao-claro/issues"
+  },
+  "homepage": "https://github.com/vitorakaki-prog/leilao-claro#readme",
+  "dependencies": {
+    "cheerio": "^1.2.0",
+    "playwright": "^1.65.1"
+  },
+  "private": true
+}
