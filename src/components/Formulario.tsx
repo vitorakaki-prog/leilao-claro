@@ -44,7 +44,7 @@ const CHECKLIST: { campo: keyof ChecklistJuridico; rotulo: string; dica?: string
   { campo: 'usucapiao', rotulo: 'Usucapião em andamento?', dica: 'Eliminatória.' },
 ];
 
-export function Formulario({ valor, onChange }: { valor: Rascunho; onChange: (r: Rascunho) => void }) {
+export function Formulario({ valor, onChange, onExemplo }: { valor: Rascunho; onChange: (r: Rascunho) => void; onExemplo?: () => void }) {
   const [texto, setTexto] = useState(valor.texto ?? '');
   const [leitura, setLeitura] = useState<Pick<Extracao, 'encontrados' | 'faltando'> | null>(null);
 
@@ -75,9 +75,17 @@ export function Formulario({ valor, onChange }: { valor: Rascunho; onChange: (r:
           Na página do imóvel no site da Caixa, selecione tudo (Ctrl+A ou Cmd+A), copie e cole aqui. Os campos são preenchidos sozinhos; confira cada um abaixo.
         </p>
         <textarea className="campo mt-3 h-28 font-mono text-xs" value={texto} onChange={(e) => setTexto(e.target.value)} placeholder="Cole aqui o texto da página do imóvel…" />
-        <button onClick={lerAnuncio} disabled={!texto.trim()} className="mt-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-40">
-          Ler anúncio
-        </button>
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          <button onClick={lerAnuncio} disabled={!texto.trim()} className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-40">
+            Ler anúncio
+          </button>
+          {onExemplo && (
+            <button onClick={onExemplo} className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm">
+              Ver exemplo
+            </button>
+          )}
+        </div>
+        <p className="mt-2 text-xs text-slate-500">Não tem o anúncio? Preencha os campos abaixo à mão: só valor de avaliação, valor mínimo, modalidade e área são obrigatórios.</p>
         {leitura && (
           <div className="mt-3 space-y-1 text-xs">
             {leitura.encontrados.length > 0 && <p className="text-emerald-700">Encontrado: {leitura.encontrados.join(', ')}.</p>}

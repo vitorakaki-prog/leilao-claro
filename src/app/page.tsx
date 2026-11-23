@@ -5,6 +5,7 @@ import { analisar, type EntradaAnalise, type Semaforo } from '@/engine/analisar'
 import { brl } from '@/engine/formatar';
 import { Formulario, type Rascunho } from '@/components/Formulario';
 import { Resultado } from '@/components/Resultado';
+import Link from 'next/link';
 
 const SELIC_PADRAO = 0.1375; // Copom, 4/11/2026
 const CHAVE = 'leilaoclaro:historico:v1';
@@ -19,6 +20,22 @@ interface ItemHistorico {
 }
 
 const novo = (): Rascunho => ({ selic: SELIC_PADRAO });
+
+/** Imóvel fictício, para ver como o resultado funciona. */
+const EXEMPLO: Rascunho = {
+  selic: SELIC_PADRAO,
+  valorAvaliacao: 400_000,
+  valorMinimo: 200_000,
+  modalidade: 'venda_direta_online',
+  temLeiloeiro: 'nao',
+  areaPrivativaM2: 60,
+  bairro: 'Saude',
+  ocupacao: 'desocupado',
+  despesaMensal: 700,
+  dividaCondominio: 0,
+  checklist: { matriculaConferida: 'sim', leilaoJudicial: 'nao', hipotecaOuPenhoraTerceiro: 'nao', penhoraTrabalhista: 'nao', bemDeFamilia: 'nao', fraudeExecucao: 'nao', usucapiao: 'nao' },
+  info: { endereco: 'EXEMPLO FICTÍCIO — Apartamento de 60 m² na Saúde, São Paulo' },
+};
 
 function lerHistorico(): ItemHistorico[] {
   try {
@@ -106,7 +123,8 @@ export default function Pagina() {
           <h1 className="text-2xl font-bold tracking-tight">LeilãoClaro</h1>
           <p className="text-sm text-slate-600">Cole o anúncio de um imóvel da Caixa e veja se vale a pena, com o porquê de cada número.</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
+          <Link href="/como-funciona" className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm">Como funciona</Link>
           <button onClick={nova} className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm">Nova análise</button>
           <button onClick={salvar} disabled={!resultado} className="rounded-lg bg-slate-900 px-3 py-2 text-sm font-medium text-white disabled:opacity-40">
             {idAtual ? 'Atualizar análise salva' : 'Salvar análise'}
@@ -116,7 +134,16 @@ export default function Pagina() {
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
         <section className="lg:col-span-5">
-          <Formulario key={chaveForm} valor={rascunho} onChange={setRascunho} />
+          <Formulario
+            key={chaveForm}
+            valor={rascunho}
+            onChange={setRascunho}
+            onExemplo={() => {
+              setRascunho(EXEMPLO);
+              setIdAtual(null);
+              setChaveForm((k) => k + 1);
+            }}
+          />
         </section>
         <section id="resultado" className="scroll-mt-4 lg:col-span-7">
           <div className="lg:sticky lg:top-6">
